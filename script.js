@@ -1,48 +1,62 @@
 let board = document.getElementsByClassName("gameboard")[0];
-
-// mantains the gameboard array
-let gameBoard = (() =>{
-  
-  let gameArray = 
-  ["X", " "," ",
-   " ", "O","O",
+let gameBoard = 
+  [" ", " "," ",
+   " ", " "," ",
    " ", " "," "];
-  
-  return gameArray
-})();
 
-// creates player
+
 let player = (name, marker) => {
   return {name, marker}
-};
+}
+let Kevin = player("Kevin", "X")
+let Erin = player("Erin", "O")
 
-
-// displays Gameboard entries on HTML
-let displayBoard = () => {
-    for (let i = 0; i <= gameBoard.length; i++){
-      if (gameBoard[i] === "X" || gameBoard[i] === "O"){
-        board.getElementsByClassName("box")[i].innerHTML = gameBoard[i];
+let checkWinner = () => {
+  if (gameBoard[0] === "X" && gameBoard[1] === "X" && gameBoard[2] === "X" ||
+      gameBoard[3] === "X" && gameBoard[4] === "X" && gameBoard[5] === "X" ||
+      gameBoard[6] === "X" && gameBoard[7] === "X" && gameBoard[8] === "X" ||
+      gameBoard[0] === "X" && gameBoard[3] === "X" && gameBoard[6] === "X" ||
+      gameBoard[1] === "X" && gameBoard[4] === "X" && gameBoard[7] === "X" ||
+      gameBoard[2] === "X" && gameBoard[5] === "X" && gameBoard[8] === "X" ||
+      gameBoard[0] === "X" && gameBoard[4] === "X" && gameBoard[8] === "X" ||
+      gameBoard[2] === "X" && gameBoard[5] === "X" && gameBoard[8] === "X"){
+      console.log(`${Kevin.name} wins!`)} else if(
+      gameBoard[0] === "O" && gameBoard[1] === "O" && gameBoard[2] === "O" ||
+      gameBoard[3] === "O" && gameBoard[4] === "O" && gameBoard[5] === "O" ||
+      gameBoard[6] === "O" && gameBoard[7] === "O" && gameBoard[8] === "O" ||
+      gameBoard[0] === "O" && gameBoard[3] === "O" && gameBoard[6] === "O" ||
+      gameBoard[1] === "O" && gameBoard[4] === "O" && gameBoard[7] === "O" ||
+      gameBoard[2] === "O" && gameBoard[5] === "O" && gameBoard[8] === "O" ||
+      gameBoard[0] === "O" && gameBoard[4] === "O" && gameBoard[8] === "O" ||
+      gameBoard[2] === "O" && gameBoard[4] === "O" && gameBoard[6] === "O"){
+        console.log(`${Erin.name} wins!`);
       }
-    }
-};
+      }
 
 
-// function that gets the click value from the user
-let clickBoard = () => {
-  let children = board.children;
-  let arr = Array.from(children)
+let clickBoard = () =>{
+  
+  let children = board.children;  
+  let arr = Array.from(children)  
   
   arr.forEach(function(el){
     el.addEventListener("click", () => {
-      let dataset = el.dataset.number;
-      console.log(+dataset)
-      return +dataset;
+      if (el.innerHTML === ' '){
+      gameBoard[el.dataset.number -1] = "O";
+      console.log(gameBoard);
+      el.innerHTML = "O"}
+      else if( el.innerHTML === "X" || el.innerHTML === "O"){console.log("already taken")}
+      
+      checkWinner();
+      
     })
   })
-}
+};
 
 clickBoard();
-displayBoard();
+
+
+
 
 
 
